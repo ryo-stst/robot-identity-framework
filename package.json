@@ -1,0 +1,46 @@
+{
+  "name": "@robot-identity-framework/sdk",
+  "version": "0.1.0-alpha.1",
+  "description": "Experimental transport-independent robot authentication reference SDK",
+  "type": "module",
+  "sideEffects": false,
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryo-stst/robot-identity-framework.git"
+  },
+  "homepage": "https://github.com/ryo-stst/robot-identity-framework#readme",
+  "bugs": {
+    "url": "https://github.com/ryo-stst/robot-identity-framework/issues"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    "dist/src",
+    "spec",
+    "docs/licensing.md",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "SECURITY.md",
+    "TRADEMARKS.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/test/*.test.js",
+    "example": "npm run build && node dist/examples/two-robot.js",
+    "prepack": "npm run build",
+    "check": "npm test"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.1",
+    "typescript": "7.0.2"
+  }
+}
