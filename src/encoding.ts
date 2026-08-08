@@ -26,7 +26,7 @@ function normalize(value: unknown): unknown {
     for (const key of Object.keys(value as Record<string, unknown>).sort()) {
       const member = (value as Record<string, unknown>)[key];
       if (member === undefined) {
-        throw new TypeError(`Canonical JSON does not accept undefined at ${key}`);
+        continue;
       }
       output[key] = normalize(member);
     }

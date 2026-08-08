@@ -7,6 +7,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   InMemoryReplayGuard,
+  canonicalJson,
   createAuthenticationInitiation,
   createAuthenticationPresentation,
   createDiscoveryAdvertisement,
@@ -17,6 +18,10 @@ import {
 
 const start = new Date("2026-08-08T00:00:00.000Z");
 const verifyAt = new Date("2026-08-08T00:00:01.000Z");
+
+test("omits undefined object members in the alpha JSON mapping", () => {
+  assert.equal(canonicalJson({ z: undefined, a: 1 }), '{"a":1}');
+});
 
 function fixture() {
   const presenter = generateIdentityKeyPair();
