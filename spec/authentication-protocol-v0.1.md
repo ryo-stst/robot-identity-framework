@@ -50,6 +50,29 @@ A valid cryptographic proof authenticates an endpoint. It does not by itself est
 
 Mutual authentication consists of two separately accountable verification results bound to shared session context. It does not imply permission for a joint action.
 
+### 4.1 SDK deployment roles
+
+Both endpoints need a protocol implementation. In the current alpha, the same SDK package serves both roles:
+
+- the presenter uses discovery, key-adapter, attribute-selection, and signed-presentation APIs;
+- the verifier uses candidate tracking, initiation, trust material, replay guard, verification, and report APIs;
+- an endpoint performing mutual authentication uses both role surfaces.
+
+An implementation may follow the specification without using this SDK, but it must produce compatible messages and should pass the published test vectors and future conformance runner.
+
+### 4.2 Multiple discovery candidates and target selection
+
+A verifier may receive advertisements from multiple presenters during the same observation window. Every advertisement is an independent, untrusted candidate identified by its short-lived handle and bearer observations.
+
+1. A bearer profile decides whether presenters advertise periodically, answer a scan, or use directed discovery. The core does not mandate a radio or interval.
+2. The verifier maintains a candidate set and removes expired handles.
+3. Target-selection logic chooses a candidate before creating an initiation bound to that advertisement hash.
+4. Unselected candidates do not share the selected candidate's session, nonce, or replay state. Concurrent authentications use separate session state.
+5. A valid presentation authenticates the selected communication endpoint. It does not prove which camera, LiDAR, or human-visible body corresponds to that endpoint.
+6. If endpoint-to-body mapping is not unique, identity may be `verified` while physical binding remains `ambiguous` or `endpoint-only`.
+
+Receiving an advertisement is `received`, sending an initiation is `sent`, and receiving a presentation is `received`; none of these transport states means `verified`. The `verified`, `failed`, and `unresolved` vocabulary applies to local verification results.
+
 ## 5. Logical messages
 
 ### 5.1 `DiscoveryAdvertisement`

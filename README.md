@@ -17,6 +17,8 @@ This public repository contains an open specification draft and a minimal TypeSc
 
 It deliberately does **not** authorize actions, issue robot commands, decide safety, define industry-specific attributes, or require a global registry or hosted service.
 
+The SDK is used on **both sides** of an exchange. Presenter endpoints use its discovery and signing functions; verifier endpoints use its challenge, trust, replay, verification, and report functions. The same package exposes both role surfaces in this alpha. An independently implemented verifier is possible only if it follows the wire model and passes compatibility tests.
+
 ```mermaid
 sequenceDiagram
     participant A as Verifier A
@@ -37,6 +39,8 @@ sequenceDiagram
 - `test/`: positive, tampering, expiry, unknown-trust, and replay tests;
 - `examples/`: a two-endpoint offline example;
 - `docs/licensing.md`: plain-language rights summary.
+
+Multiple presenters may advertise at once. A verifier keeps them as separate untrusted candidates, selects one advertisement, and creates an isolated authentication session for that target. Authentication proves the selected communication endpoint; physical-body selection remains a separate binding problem.
 
 ## Try it locally
 
