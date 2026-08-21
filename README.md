@@ -4,6 +4,10 @@ Experimental, transport-independent authentication for robots and other Physical
 
 This public repository contains an open specification draft and a minimal TypeScript reference SDK. The SDK proves that the same authentication transcript can be carried by an in-memory link today and by BLE, local Wi-Fi, UWB-assisted, vehicle, or other bearer profiles later.
 
+**[Launch the interactive Field Lab →](https://robot-identity-field-lab.sato-kit111.chatgpt.site/)**
+
+The public browser demo uses the released SDK to simulate three discovery candidates, an isolated authentication session, hostile scenarios, and the resulting payloads. Runs use temporary in-memory data and are not saved.
+
 > **Alpha warning:** this project has not received an independent security review. It is not a production security claim, certification program, safety controller, or interoperability standard.
 
 ## What this project does
@@ -41,6 +45,12 @@ sequenceDiagram
 - `docs/licensing.md`: plain-language rights summary.
 
 Multiple presenters may advertise at once. A verifier keeps them as separate untrusted candidates, selects one advertisement, and creates an isolated authentication session for that target. Authentication proves the selected communication endpoint; physical-body selection remains a separate binding problem.
+
+## Try it in the browser
+
+Open the **[Robot Identity Field Lab](https://robot-identity-field-lab.sato-kit111.chatgpt.site/)**, select one of the three Presenter candidates, choose a success or attack scenario, and run the protocol. The lab separates standardized authentication data from optional domain-extension data and links each verifier-local candidate to its discovery handle, session, and presented peer key.
+
+The Field Lab is an educational alpha, not a hosted trust registry, certification service, safety controller, or production-security claim. Its web source remains separate from this Apache-2.0 repository; the protocol, SDK, examples, and tests in this repository remain the portable open-source core.
 
 ## Try it locally
 
